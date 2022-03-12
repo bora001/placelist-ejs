@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Placelist - Login Account</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+  </head>
+  <body>
+    <div w3-include-html="../pages/nav.html"></div>
+    <section class="section_login">
+      <form class="form_login form_box" action="/login" method="POST">
+        <h2>Login</h2>
+        <input type="text" placeholder="Username" name="username" required />
+        <input
+          type="password"
+          placeholder="password"
+          name="password"
+          required
+        />
+        <input type="submit" class="btn_submit" value="Login" name="type" />
+      </form>
+    </section>
+  </body>
+  <script src="../js/index.js"></script>
+</html>

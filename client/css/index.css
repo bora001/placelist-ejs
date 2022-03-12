@@ -1,0 +1,581 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,900;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+* {
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+img {
+  width: 100%;
+}
+
+.off {
+  display: none !important;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+nav {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  background: linear-gradient(to bottom, rgba(245, 244, 244, 0.459), rgba(180, 180, 180, 0.459));
+  z-index: 999;
+}
+nav .logo a {
+  color: #131577;
+  font-size: 32px;
+  letter-spacing: 2px;
+  font-family: "Lobster", cursive;
+}
+nav .menu {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+nav .menu a {
+  color: #131577;
+  font-family: "Lobster", cursive;
+  font-size: 22px;
+  letter-spacing: 1px;
+  width: 100px;
+  align-items: center;
+}
+nav .menu .login_box {
+  display: flex;
+  justify-content: space-between;
+  width: 220px;
+}
+nav .menu .login_box a {
+  display: inline-block;
+}
+nav .menu .login_box.login_true {
+  width: 320px;
+}
+
+#map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+section {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(190, 190, 190, 0.164);
+}
+section .form_box {
+  position: relative;
+  justify-content: space-between;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 20px;
+  width: 350px;
+  height: 450px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+section .form_box:before {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  z-index: 99;
+  width: 65px;
+  height: 65px;
+  opacity: 1;
+  content: "";
+  background: url("https://cdn.pixabay.com/photo/2017/07/17/13/25/seal-2512363_960_720.png") center/cover no-repeat;
+}
+section .form_box h2 {
+  font-family: "Lobster", cursive;
+  color: rgba(16, 18, 129, 0.973);
+  font-size: 32px;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+section .form_box input {
+  position: relative;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(83, 81, 85, 0.205);
+  letter-spacing: 1px;
+  text-indent: 10px;
+  height: 25px;
+}
+section .form_box input[type=file] {
+  box-shadow: none;
+}
+section .form_box input:invalid {
+  background-color: rgba(249, 250, 252, 0.938);
+}
+section .form_box textarea {
+  border: none;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  padding: 7px;
+  font-weight: 500;
+}
+section .form_box .btn_submit {
+  border: none;
+  height: 30px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+  background: linear-gradient(to bottom, rgba(245, 244, 244, 0.459), rgba(180, 180, 180, 0.459));
+  box-shadow: none;
+}
+section .form_box .btn_submit:hover {
+  transition: 0.2s;
+  color: #fff;
+  background: transparent;
+  background-color: #1a1c9b;
+}
+
+.section_login:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0.9;
+  background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+}
+.section_login .form_login {
+  width: 300px;
+  height: 250px;
+}
+
+.section_register:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0.9;
+  background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+}
+.section_register .form_register {
+  width: 300px;
+  height: 250px;
+}
+
+.section_new:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0.9;
+  background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+}
+.section_new .form_box {
+  height: auto;
+}
+.section_new .form_box input {
+  margin: 10px 0;
+  font-size: 16px;
+}
+.section_new .form_box input[type=file] {
+  font-size: 14px;
+}
+.section_new .form_box label {
+  font-size: 18px;
+  color: rgba(16, 18, 129, 0.973);
+  font-weight: 900;
+  margin: 5px;
+}
+.section_new .pre_img {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.mapboxgl-popup-content {
+  padding: 15px 5px;
+}
+.mapboxgl-popup-content img {
+  width: 120px;
+  height: 70px;
+}
+.mapboxgl-popup-content h2 {
+  font-size: 13px;
+  text-align: center;
+  font-weight: 200;
+}
+
+.rate_input {
+  position: relative;
+  display: table;
+  font-size: 36px;
+}
+.rate_input p {
+  z-index: 1;
+  color: #bebcbc;
+}
+.rate_input p.filled {
+  position: absolute;
+  top: 0;
+  width: 60%;
+  overflow: hidden;
+  color: red;
+  z-index: 9;
+}
+.rate_input input[name=rate] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  opacity: 0;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 1440px) {
+  nav {
+    width: 100vw;
+    padding: 1.0417vw 1.7361vw;
+    background: linear-gradient(to bottom, rgba(245, 244, 244, 0.459), rgba(180, 180, 180, 0.459));
+  }
+  nav .logo a {
+    color: #131577;
+    font-size: 2.2222vw;
+    letter-spacing: 0.1389vw;
+    font-family: "Lobster", cursive;
+  }
+  nav .menu {
+    align-items: center;
+  }
+  nav .menu a {
+    color: #131577;
+    font-family: "Lobster", cursive;
+    font-size: 1.5278vw;
+    letter-spacing: 0.0694vw;
+    width: 6.9444vw;
+    align-items: center;
+  }
+  nav .menu .login_box {
+    display: flex;
+    justify-content: space-between;
+    width: 16vw;
+  }
+  nav .menu .login_box a {
+    display: inline-block;
+  }
+  nav .menu .login_box.login_true {
+    width: 24vw;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+
+  section {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(190, 190, 190, 0.164);
+  }
+  section .form_box {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1.3889vw;
+    width: 24.3056vw;
+    height: 31.25vw;
+    padding: 1.3889vw;
+    flex-direction: column;
+  }
+  section .form_box:before {
+    top: -1.3889vw;
+    right: 0.6944vw;
+    width: 4.5139vw;
+    height: 4.5139vw;
+    opacity: 1;
+    background: url("https://cdn.pixabay.com/photo/2017/07/17/13/25/seal-2512363_960_720.png") center/cover no-repeat;
+  }
+  section .form_box h2 {
+    font-family: "Lobster", cursive;
+    color: rgba(16, 18, 129, 0.973);
+    font-size: 2.2222vw;
+    letter-spacing: 0.2778vw;
+    margin-bottom: 0.6944vw;
+  }
+  section .form_box input {
+    border-radius: 0.3472vw;
+    border: none;
+    box-shadow: 0.3472vw 0.3472vw 0.3472vw rgba(83, 81, 85, 0.205);
+    letter-spacing: 0.0694vw;
+    text-indent: 0.6944vw;
+    height: 1.7361vw;
+  }
+  section .form_box input[type=file] {
+    box-shadow: none;
+  }
+  section .form_box input:invalid {
+    background-color: rgba(249, 250, 252, 0.938);
+  }
+  section .form_box textarea {
+    border: none;
+    border-radius: 0.3472vw;
+    letter-spacing: 0.0694vw;
+    padding: 0.4861vw;
+  }
+  section .form_box .btn_submit {
+    border: none;
+    height: 2.0833vw;
+    cursor: pointer;
+    margin-top: 0.6944vw;
+    font-size: 1.1111vw;
+    background: linear-gradient(to bottom, rgba(245, 244, 244, 0.459), rgba(180, 180, 180, 0.459));
+    box-shadow: none;
+  }
+  section .form_box .btn_submit:hover {
+    transition: 0.2s;
+    background: transparent;
+    background-color: #1a1c9b;
+  }
+
+  .section_login:before {
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+  }
+  .section_login .form_login {
+    width: 20.8333vw;
+    height: 17.3611vw;
+  }
+
+  .section_register:before {
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+  }
+  .section_register .form_register {
+    width: 20.8333vw;
+    height: 17.3611vw;
+  }
+
+  .section_new:before {
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+  }
+  .section_new .form_box {
+    height: auto;
+  }
+  .section_new .form_box input {
+    font-size: 1.1111vw;
+    margin: 0.6944vw 0;
+  }
+  .section_new .form_box input[type=file] {
+    font-size: 0.3vw;
+    height: auto;
+  }
+  .section_new .form_box label {
+    font-size: 1.4vw;
+    color: rgba(16, 18, 129, 0.973);
+    margin: 0.3472vw;
+  }
+  .section_new .pre_img {
+    width: 20.8333vw;
+    margin: 0 auto;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 1.0417vw 0.3472vw;
+  }
+  .mapboxgl-popup-content img {
+    width: 8.3333vw;
+    height: 4.8611vw;
+  }
+  .mapboxgl-popup-content h2 {
+    font-size: 0.9028vw;
+  }
+}
+@media all and (max-width: 767px) {
+  nav {
+    width: 100vw;
+    padding: 3vw 3.2595vw;
+    background: linear-gradient(to bottom, rgba(245, 244, 244, 0.459), rgba(180, 180, 180, 0.459));
+  }
+  nav .logo a {
+    color: #131577;
+    font-size: 6vw;
+    letter-spacing: 0.2608vw;
+    font-family: "Lobster", cursive;
+  }
+  nav .menu {
+    align-items: center;
+  }
+  nav .menu a {
+    color: #131577;
+    font-family: "Lobster", cursive;
+    font-size: 4vw;
+    letter-spacing: 0.1304vw;
+    align-items: center;
+  }
+  nav .menu .login_box {
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+  }
+  nav .menu .login_box a {
+    display: inline-block;
+  }
+  nav .menu .login_box.login_true {
+    width: 54vw;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+
+  section {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(190, 190, 190, 0.164);
+  }
+  section .form_box {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2.6076vw;
+    width: 45.6323vw;
+    height: auto;
+    padding: 6vw;
+    flex-direction: column;
+  }
+  section .form_box:before {
+    top: -2.6076vw;
+    right: 1.3038vw;
+    width: 12vw;
+    height: 12vw;
+    opacity: 1;
+    background: url("https://cdn.pixabay.com/photo/2017/07/17/13/25/seal-2512363_960_720.png") center/cover no-repeat;
+  }
+  section .form_box h2 {
+    font-family: "Lobster", cursive;
+    color: rgba(16, 18, 129, 0.973);
+    font-size: 8vw;
+    letter-spacing: 0.5215vw;
+    margin-bottom: 1.3038vw;
+  }
+  section .form_box input {
+    font-size: 4vw;
+    border-radius: 0.6519vw;
+    border: none;
+    box-shadow: none;
+    letter-spacing: 0.1304vw;
+    text-indent: 3vw;
+    height: 9vw;
+  }
+  section .form_box input[type=file] {
+    width: 100%;
+    box-shadow: none;
+  }
+  section .form_box input:invalid {
+    background: rgba(230, 229, 229, 0.596);
+  }
+  section .form_box textarea {
+    border: none;
+    border-radius: 0.6519vw;
+    letter-spacing: 0.1304vw;
+    padding: 0.9126vw;
+  }
+  section .form_box .btn_submit {
+    font-size: 4vw;
+    border: none;
+    height: 8vw;
+    cursor: pointer;
+    margin-top: 1.3038vw;
+    color: #fff;
+    background-color: #1a1c9b;
+    box-shadow: none;
+  }
+
+  .section_login {
+    height: 100vh;
+  }
+  .section_login:before {
+    width: 100%;
+    height: 100vh;
+    opacity: 0.9;
+    background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+  }
+  .section_login .form_login {
+    width: 68vw;
+    height: 68vw;
+  }
+
+  .section_register:before {
+    width: 100%;
+    height: 100vh;
+    opacity: 0.9;
+    background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+  }
+  .section_register .form_register {
+    width: 68vw;
+    height: 68vw;
+  }
+
+  .section_new {
+    overflow: scroll;
+  }
+  .section_new:before {
+    width: 100%;
+    height: 100vh;
+    opacity: 0.9;
+    background: url("https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_960_720.jpg") center/cover no-repeat;
+  }
+  .section_new .form_box {
+    height: auto;
+    width: 68vw;
+  }
+  .section_new .form_box input {
+    margin: 1.3038vw 0;
+  }
+  .section_new .form_box input[type=file] {
+    height: auto;
+    margin: 1vw auto;
+  }
+  .section_new .form_box label {
+    font-size: 5vw;
+    color: rgba(16, 18, 129, 0.973);
+    margin: 0.6519vw;
+  }
+  .section_new .pre_img {
+    width: 56vw;
+    margin: 2vw auto;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 8vw 2.5vw 2vw !important;
+  }
+  .mapboxgl-popup-content img {
+    width: 25vw;
+    height: 18vw;
+  }
+  .mapboxgl-popup-content h2 {
+    font-size: 3.5vw;
+  }
+  .mapboxgl-popup-content .mapboxgl-popup-close-button {
+    font-size: 7vw;
+    margin: 0 2vw;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

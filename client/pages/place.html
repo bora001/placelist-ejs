@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Placelist</title>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/place.css" />
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+  </head>
+  <body>
+    <div w3-include-html="../pages/nav.html"></div>
+    <section class="section_place">
+      <div class="place_box">
+        <div class="item_box">
+          <div class="opt_box">
+            <div id="map"></div>
+            <button class="del_place off">Delete</button>
+          </div>
+        </div>
+        <div class="review_box">
+          <div class="review_add off">
+            <form action="" class="form_box" onsubmit="return false">
+              <div class="top_box">
+                <h3>Leave a Review</h3>
+                <div class="rate_input">
+                  <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                  <p class="filled">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                  <input
+                    type="range"
+                    name="rate"
+                    min="1"
+                    max="5"
+                    step="0.5"
+                    value="3"
+                  />
+                </div>
+              </div>
+              <div class="bottom_box">
+                <textarea name="comment" id="" required></textarea>
+                <input
+                  type="submit"
+                  name="type"
+                  class="btn_submit"
+                  value="Leave a Review"
+                />
+              </div>
+            </form>
+          </div>
+
+          <div class="review_list"></div>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+  <script src="../js/index.js"></script>
+  <script src="../js/place.js"></script>
+</html>

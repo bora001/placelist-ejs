@@ -1,0 +1,502 @@
+.section_place {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+
+  .place_box {
+    display: flex;
+    width: 82vw;
+    margin: 0 auto;
+    .item_box {
+      position: relative;
+      width: 50%;
+      padding: 20px;
+
+      .detail_box {
+        .img_box {
+          width: 580px;
+        }
+        .txt_box {
+          padding: 20px 0;
+
+          .intro_box {
+            display: flex;
+            align-items: center;
+            h3 {
+              font-size: 28px;
+            }
+            .rate_input {
+              margin: 0 5px;
+              font-size: 14px;
+            }
+            p {
+              font-size: 14px;
+            }
+          }
+
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+      .opt_box {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        button.del_place {
+          font-size: 12px;
+          width: 100px;
+          height: 30px;
+          line-height: 30px;
+          cursor: pointer;
+          border: none;
+          background-color: rgba(19, 21, 119, 0.11);
+          background: linear-gradient(
+            to bottom,
+            rgba(240, 238, 238, 0.459),
+            rgba(223, 221, 221, 0.459)
+          );
+          &:hover {
+            background: transparent;
+            background-color: rgba(182, 11, 11, 0.911);
+            transition: 0.3s;
+            color: #fff;
+          }
+        }
+        #map {
+          position: relative;
+          width: 200px;
+          height: 100px;
+        }
+      }
+    }
+    .review_box {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+
+      .review_add {
+        position: relative;
+        margin: 20px auto;
+        width: 100%;
+        padding: 0 30px 20px;
+
+        form {
+          position: relative;
+          display: flex;
+          width: 100%;
+          height: 270px;
+          flex-direction: column;
+          background-color: rgb(231, 231, 236);
+          background: linear-gradient(
+            to bottom,
+            rgba(236, 235, 235, 0.459),
+            rgba(209, 208, 208, 0.459)
+          );
+          .top_box {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 90%;
+            h3 {
+              font-size: 24px;
+              color: rgb(19, 21, 119);
+            }
+
+            .rate_input {
+              input {
+                top: 0;
+              }
+            }
+          }
+          .bottom_box {
+            textarea {
+              padding: 5%;
+              width: 100%;
+              height: 150px;
+            }
+
+            input[type="submit"] {
+              position: absolute;
+              width: 30%;
+              margin: 0 auto;
+              top: 75%;
+              right: 10%;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .review_list {
+        padding: 20px 30px;
+        margin-bottom: 50px;
+        .review_item {
+          position: relative;
+          padding: 10px;
+          margin-bottom: 10px;
+          background: linear-gradient(
+            to bottom,
+            rgba(240, 238, 238, 0.459),
+            rgba(223, 221, 221, 0.459)
+          );
+          .review_edit {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            width: 70px;
+            p {
+              font-size: 12px;
+              color: rgb(78, 76, 76);
+              cursor: pointer;
+            }
+          }
+          .rate_input {
+            font-size: 18px;
+          }
+
+          .review_txt {
+            padding: 5px;
+            h3 {
+              font-size: 16px;
+            }
+            p {
+              margin: 15px;
+              font-size: 16px;
+            }
+          }
+          .del_review {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1440px) {
+  .section_place {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    .place_box {
+      width: 82vw;
+      margin: 0 auto;
+      .item_box {
+        width: 50%;
+        padding: 1.3889vw;
+        .detail_box {
+          .img_box {
+            width: 40.2778vw;
+          }
+          .txt_box {
+            padding: 1.3889vw 0;
+            .intro_box {
+              align-items: center;
+              h3 {
+                font-size: 1.9444vw;
+              }
+              .rate_input {
+                margin: 0 0.3472vw;
+                font-size: 0.9722vw;
+              }
+              p {
+                font-size: 0.9722vw;
+              }
+            }
+
+            p {
+              font-size: 1.1111vw;
+            }
+          }
+        }
+        .opt_box {
+          align-items: flex-end;
+          button.del_place {
+            font-size: 0.8333vw;
+            width: 6.9444vw;
+            height: 2.0833vw;
+            line-height: 2.0833vw;
+            cursor: pointer;
+            border: none;
+            background-color: rgba(19, 21, 119, 0.11);
+            background: linear-gradient(
+              to bottom,
+              rgba(240, 238, 238, 0.459),
+              rgba(223, 221, 221, 0.459)
+            );
+            &:hover {
+              background: transparent;
+              background-color: rgba(182, 11, 11, 0.911);
+              transition: 0.3s;
+            }
+          }
+          #map {
+            width: 13.8889vw;
+            height: 6.9444vw;
+          }
+        }
+      }
+      .review_box {
+        width: 50%;
+        flex-direction: column;
+        .review_add {
+          margin: 1.3889vw auto;
+          width: 100%;
+          padding: 0 2.0833vw 1.3889vw;
+
+          form {
+            width: 100%;
+            height: 18.75vw;
+            flex-direction: column;
+            background-color: rgb(231, 231, 236);
+            background: linear-gradient(
+              to bottom,
+              rgba(236, 235, 235, 0.459),
+              rgba(209, 208, 208, 0.459)
+            );
+            .top_box {
+              align-items: flex-end;
+              width: 90%;
+              h3 {
+                font-size: 1.6667vw;
+                color: rgb(19, 21, 119);
+              }
+              .rate_input {
+                font-size: 3vw;
+                input {
+                  top: 0;
+                }
+              }
+            }
+            .bottom_box {
+              textarea {
+                padding: 5%;
+                width: 100%;
+                height: 10.4167vw;
+              }
+
+              input[type="submit"] {
+                width: 30%;
+                margin: 0 auto;
+                top: 75%;
+                right: 10%;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        .review_list {
+          padding: 1.3889vw 2.0833vw;
+          margin-bottom: 3.4722vw;
+          .review_item {
+            padding: 0.6944vw;
+            margin-bottom: 0.6944vw;
+            background: linear-gradient(
+              to bottom,
+              rgba(240, 238, 238, 0.459),
+              rgba(223, 221, 221, 0.459)
+            );
+            .review_edit {
+              top: 0.6944vw;
+              right: 0.6944vw;
+              width: 4.8611vw;
+              p {
+                font-size: 0.8333vw;
+                color: rgb(78, 76, 76);
+                cursor: pointer;
+              }
+            }
+            .rate_input {
+              font-size: 1.25vw;
+            }
+
+            .review_txt {
+              padding: 0.3472vw;
+              h3 {
+                font-size: 1.1111vw;
+              }
+              p {
+                margin: 1.0417vw;
+                font-size: 1.1111vw;
+              }
+            }
+            .del_review {
+              top: 0.6944vw;
+              right: 0.6944vw;
+              cursor: pointer;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 767px) {
+  .section_place {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    .place_box {
+      display: flex;
+      flex-direction: column;
+      width: 82vw;
+      margin: 0 auto;
+      .item_box {
+        width: 100%;
+        padding: 2.6076vw 0;
+        .detail_box {
+          .img_box {
+            width: 100%;
+          }
+          .txt_box {
+            padding: 2.6076vw 0;
+            .intro_box {
+              align-items: center;
+              h3 {
+                font-size: 5vw;
+              }
+              .rate_input {
+                margin: 0 0.6519vw;
+                font-size: 2.5vw;
+              }
+              p {
+                font-size: 2.5vw;
+              }
+            }
+
+            p {
+              font-size: 3vw;
+            }
+          }
+        }
+        .opt_box {
+          align-items: flex-end;
+          button.del_place {
+            font-size: 1.5645vw;
+            width: 13.0378vw;
+            height: 3.9113vw;
+            line-height: 3.9113vw;
+            cursor: pointer;
+            border: none;
+            background-color: rgba(182, 11, 11, 0.911);
+          }
+          #map {
+            width: 26.0756vw;
+            height: 13.0378vw;
+          }
+        }
+      }
+      .review_box {
+        width: 100%;
+        flex-direction: column-reverse;
+        margin-bottom: 15vw;
+        .review_add {
+          margin: 2.6076vw auto;
+          width: 100%;
+          padding: 0 0 1.6076vw;
+          form {
+            width: 100%;
+            height: 35vw;
+            flex-direction: column;
+            top: 0;
+            left: 0;
+            transform: none;
+            padding: 3vw;
+            background-color: rgb(231, 231, 236);
+            background: linear-gradient(
+              to bottom,
+              rgba(236, 235, 235, 0.459),
+              rgba(209, 208, 208, 0.459)
+            );
+            .top_box {
+              align-items: flex-end;
+              width: 85%;
+              h3 {
+                font-size: 3.1291vw;
+                color: rgb(19, 21, 119);
+              }
+              .rate_input {
+                font-size: 4vw;
+                input {
+                  top: 0;
+                }
+              }
+            }
+            .bottom_box {
+              textarea {
+                padding: 5%;
+                width: 100%;
+                height: 20vw;
+              }
+              input[type="submit"] {
+                font-size: 2vw;
+                padding: 2%;
+                text-indent: 0;
+                width: 30%;
+                height: auto;
+                margin: 0 auto;
+                top: 68%;
+                right: 4.5%;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        .review_list {
+          padding: 2.6076vw 0vw;
+          margin-bottom: 6.5189vw;
+          .review_item {
+            padding: 1.3038vw;
+            margin-bottom: 1.3038vw;
+            background: linear-gradient(
+              to bottom,
+              rgba(240, 238, 238, 0.459),
+              rgba(223, 221, 221, 0.459)
+            );
+            .review_edit {
+              top: 1.3038vw;
+              right: 1.3038vw;
+              width: 9.1265vw;
+              p {
+                font-size: 2vw;
+                color: rgb(78, 76, 76);
+                cursor: pointer;
+              }
+            }
+            .rate_input {
+              font-size: 2.3468vw;
+            }
+            .review_txt {
+              padding: 0.6519vw;
+              h3 {
+                font-size: 2.7vw;
+              }
+              p {
+                margin: 1.9557vw;
+                font-size: 2.5vw;
+              }
+            }
+            .del_review {
+              top: 1.3038vw;
+              right: 1.3038vw;
+              cursor: pointer;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

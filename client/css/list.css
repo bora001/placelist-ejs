@@ -1,0 +1,163 @@
+.section_list {
+  overflow-y: scroll;
+}
+.section_list .list_box {
+  width: 80%;
+  margin: 0 auto 100px;
+}
+.section_list .list_box .list_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 370px;
+  overflow: hidden;
+  margin: 20px;
+  background-color: rgba(228, 228, 230, 0.993);
+  background: linear-gradient(to bottom, rgba(236, 235, 235, 0.459), rgba(209, 208, 208, 0.459));
+}
+.section_list .list_box .list_item .img_box {
+  width: 50%;
+  width: 800px;
+}
+.section_list .list_box .list_item .txt_box {
+  position: relative;
+  width: 50%;
+  left: -100px;
+  padding: 40px;
+  height: auto;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.section_list .list_box .list_item .txt_box h3 {
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+.section_list .list_box .list_item .txt_box p {
+  font-size: 18px;
+  line-height: 28px;
+}
+.section_list .list_box .list_item .txt_box .rate_box {
+  display: flex;
+  top: -60px;
+  right: -60px;
+  position: absolute;
+}
+.section_list .list_box .list_item .txt_box .btn_view {
+  float: right;
+  display: block;
+  width: 150px;
+  line-height: 40px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #1a1c9b;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.26);
+}
+
+@media (min-width: 768px) and (max-width: 1440px) {
+  .section_list {
+    overflow-y: scroll;
+  }
+  .section_list .list_box {
+    width: 80%;
+    margin: 0 auto 6.9444vw;
+  }
+  .section_list .list_box .list_item {
+    align-items: center;
+    height: 25.6944vw;
+    margin: 1.3889vw;
+    background-color: rgba(228, 228, 230, 0.993);
+    background: linear-gradient(to bottom, rgba(236, 235, 235, 0.459), rgba(209, 208, 208, 0.459));
+  }
+  .section_list .list_box .list_item .img_box {
+    width: 50%;
+    width: 55.5556vw;
+  }
+  .section_list .list_box .list_item .txt_box {
+    width: 50%;
+    left: -6.9444vw;
+    padding: 2.7778vw;
+    height: auto;
+    border-radius: 1.3889vw;
+  }
+  .section_list .list_box .list_item .txt_box h3 {
+    font-size: 1.9444vw;
+    letter-spacing: 0.0694vw;
+  }
+  .section_list .list_box .list_item .txt_box p {
+    font-size: 1.25vw;
+    line-height: 1.9444vw;
+  }
+  .section_list .list_box .list_item .txt_box .rate_box {
+    top: -4.1667vw;
+    right: -4.1667vw;
+  }
+  .section_list .list_box .list_item .txt_box .btn_view {
+    width: 10.4167vw;
+    line-height: 2.7778vw;
+    margin-top: 1.3889vw;
+    border-radius: 0.3472vw;
+    background-color: #1a1c9b;
+    font-size: 1.1111vw;
+    cursor: pointer;
+    box-shadow: 0.1389vw 0.2778vw 0.3472vw rgba(0, 0, 0, 0.26);
+  }
+}
+@media all and (max-width: 767px) {
+  .section_list {
+    overflow-y: scroll;
+  }
+  .section_list .list_box {
+    width: 90%;
+    margin: 0 auto 13.0378vw;
+  }
+  .section_list .list_box .list_item {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    margin: 2.6076vw;
+    background-color: transparent;
+    background: none;
+  }
+  .section_list .list_box .list_item .img_box {
+    width: 100%;
+  }
+  .section_list .list_box .list_item .txt_box {
+    width: 100%;
+    top: -5vw;
+    left: 0;
+    padding: 6vw;
+    border-radius: 0vw;
+    background-color: #eeeded;
+  }
+  .section_list .list_box .list_item .txt_box h3 {
+    font-size: 3.6506vw;
+    letter-spacing: 0.1304vw;
+  }
+  .section_list .list_box .list_item .txt_box p {
+    font-size: 2.3468vw;
+    line-height: 3.6506vw;
+  }
+  .section_list .list_box .list_item .txt_box .rate_box {
+    top: 6vw;
+    right: 6vw;
+  }
+  .section_list .list_box .list_item .txt_box .rate_box .rate_input p {
+    font-size: 3vw;
+  }
+  .section_list .list_box .list_item .txt_box .btn_view {
+    width: 19.5567vw;
+    line-height: 5.2151vw;
+    margin-top: 2.6076vw;
+    border-radius: 0.6519vw;
+    background-color: #1a1c9b;
+    font-size: 2.086vw;
+    cursor: pointer;
+    box-shadow: 0.2608vw 0.5215vw 0.6519vw rgba(0, 0, 0, 0.26);
+  }
+}
+
+/*# sourceMappingURL=list.css.map */
