@@ -50,6 +50,7 @@ mongoose
 
 //---------------------------------------------------------------------------------------//
 
+app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/client"));
@@ -185,17 +186,18 @@ app.post("/", (req, res) => {
 
 //router
 app.use("/place", placeRouter);
+app.set("views", path.join(__dirname, "/client/pages"));
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
-// app.get("/secret", (req, res) => {
-// if (!req.session.user_id) {
-//   return res.send("hey you didn't login");
-// }
-// });
-
+app.get("/place/:id", (req, res) => {
+  res.render("place.ejs");
+});
 app.get("*", (req, res) => {
   const link = req.path.split("/");
   if (link.length < 3) {
-    res.sendFile(path.join(__dirname + `/client/pages/${req.path}.html`));
+    res.render(`${link[1]}`);
   }
 });
 

@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Placelist - Login Account</title>
     <link rel="stylesheet" href="../css/index.css" />
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
   </head>
   <body>
-    <div w3-include-html="../pages/nav.html"></div>
+    <%-include('nav.ejs') %>
     <section class="section_login">
       <form class="form_login form_box" action="/login" method="POST">
         <h2>Login</h2>
