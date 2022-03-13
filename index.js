@@ -194,6 +194,13 @@ app.get("/", (req, res) => {
 app.get("/place/:id", (req, res) => {
   res.render("place.ejs");
 });
+app.get("/list", (req, res) => {
+  Place.find((err, data) => {
+    if (err) console.log(err);
+    return res.render("list.ejs", { data });
+  });
+});
+
 app.get("*", (req, res) => {
   const link = req.path.split("/");
   if (link.length < 3) {
@@ -202,13 +209,13 @@ app.get("*", (req, res) => {
 });
 
 app.post("/list", (req, res) => {
-  Place.find((err, data) => {
-    if ((err) => console.log(err))
-      return res.json({
-        success: true,
-        data,
-      });
-  });
+  // Place.find((err, data) => {
+  //   if ((err) => console.log(err))
+  //     return res.json({
+  //       success: true,
+  //       data,
+  //     });
+  // });
 });
 
 const port = process.env.PORT || 3000;
