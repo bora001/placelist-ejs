@@ -11,33 +11,26 @@ const cloudinary = require("cloudinary").v2;
 router.use(cookieParser());
 
 router.get("/:id", (req, res) => {
-  res.render("place.ejs");
-});
-
-router.post("/:id", (req, res) => {
-  let data = { _id: req.params.id };
-  let key = process.env.mapToken;
+  let id = { _id: req.params.id };
+  let loginUser = req.session.user_id;
   if (req.session.user_id) {
     User.findById(req.session.user_id, (err, user) => {
-      Place.findOne(data, function (err, item) {
+      Place.findOne(id, function (err, item) {
         let writer = user._id.valueOf() == item.writer.valueOf();
-        return res.status(200).json({
-          success: true,
-          item,
-          writer,
-          key,
-        });
+        res.render("place.ejs", { item, writer, loginUser });
       }).populate("review");
     });
   } else {
-    Place.findOne(data, function (err, item) {
-      return res.status(200).json({
-        success: true,
-        item,
-        key,
-      });
+    Place.findOne(id, function (err, item) {
+      let writer = false;
+      res.render("place.ejs", { item, writer, loginUser });
     }).populate("review");
   }
+});
+
+router.post("/:id", (req, res) => {
+  let key = process.env.mapToken;
+  return res.status(200).json({ key });
 });
 
 router.delete("/:id/delete", (req, res) => {

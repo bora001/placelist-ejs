@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Placelist</title>
+    <title>Placelist - <%= item.name %></title>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
       rel="stylesheet"
@@ -13,22 +13,55 @@
     <link rel="stylesheet" href="../css/place.css" />
   </head>
   <body>
+    <script>
+      console.log(`<%= loginUser%>`);
+    </script>
     <%-include('nav.ejs') %>
-
     <section class="section_place">
       <div class="place_box">
         <div class="item_box">
+          <div class="detail_box">
+            <div class="img_box">
+              <img src="<%= item.img  %>" alt="" />
+            </div>
+            <div class="txt_box">
+              <div class="intro_box">
+                <h3><%= item.name %></h3>
+                <div class="rate_input">
+                  <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                  <p
+                    class="filled"
+                    style="
+                      width: <%=(item.rate/item.review.length) .toFixed(1) * 20
+                        %>%;
+                    "
+                  >
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </p>
+                </div>
+                <p class="current_rate">
+                  <% if(item.rate){ %>
+                  <%=(item.rate/item.review.length).toFixed(1)%> <% } else{ %>
+                  <% } %>
+                </p>
+              </div>
+              <p><%= item.address %></p>
+            </div>
+          </div>
+
           <div class="opt_box">
-            <div id="map"></div>
-            <button class="del_place off">Delete</button>
+            <div id="map" pos="<%= item.geometry.coordinates %> "></div>
+            <% if(writer){ %>
+            <button class="del_place" onClick="deleteItem()">Delete</button>
+            <% } else{ %> <% } %>
           </div>
         </div>
         <div class="review_box">
-          <div class="review_add off">
+          <div class="review_add">
             <form action="" class="form_box" onsubmit="return false">
               <div class="top_box">
                 <h3>Leave a Review</h3>
-                <div class="rate_input">
+                <div class="rate_input change_input">
                   <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                   <p class="filled">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                   <input
@@ -52,8 +85,31 @@
               </div>
             </form>
           </div>
-
-          <div class="review_list"></div>
+          <div class="review_list">
+            <% for(let review of item.review) {%>
+            <div class="review_item">
+              <div class="rate_input">
+                <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                <p class="filled" style="width: <%= review.rate * 20 %>%">
+                  &#9733;&#9733;&#9733;&#9733;&#9733;
+                </p>
+              </div>
+              <div class="review_txt">
+                <h3><%= review.username %></h3>
+                <p><%= review.comment %></p>
+              </div>
+              <% if(loginUser == review.userId){ %>
+              <button
+                class="del_review"
+                onClick="deleteReview(`<%= review._id%>`,`<%= review.rate%>`)"
+                data-review=""
+              >
+                ❌
+              </button>
+              <% } else{ %> <% } %>
+            </div>
+            <%}%>
+          </div>
         </div>
       </div>
     </section>

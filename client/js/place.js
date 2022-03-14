@@ -1,5 +1,7 @@
-//item
+// //item
 let link = window.location.pathname.split("/");
+let id = link[2];
+
 const getItem = async (id) => {
   try {
     const res = await fetch(`/place/${id}`, {
@@ -10,72 +12,31 @@ const getItem = async (id) => {
       },
     });
     const data = await res.json();
-
-    renderItem(data.item, data.key);
-    renderReview(data.item.review);
-    deleteItem(data.writer, data.item._id);
-    document.title = `Placelist - ${data.item.name}`;
+    renderMap(data.key);
+    console.log(data);
   } catch (e) {
     console.log(e);
   }
 };
 
-const deleteItem = (result, id) => {
-  const delBtn = document.querySelector(".section_place .del_place");
-  if (result) {
-    delBtn.classList.remove("off");
-  }
-
-  delBtn.addEventListener("click", () => {
-    if (window.confirm("Are you sure you want to delete this place ?")) {
-      fetch(`/place/${id}/delete`, {
-        credentials: "include",
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+const deleteItem = () => {
+  console.log(id);
+  if (window.confirm("Are you sure you want to delete this place ?")) {
+    fetch(`/place/${id}/delete`, {
+      credentials: "include",
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          window.location.href = "/";
+        }
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            window.location.href = "/";
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  });
-};
-
-const renderItem = (data, key) => {
-  renderMap(data.geometry.coordinates, key);
-  let length = data.review.length;
-  let average = (data.rate / length).toFixed(1);
-  let itemBox = document.querySelector(".section_place .item_box");
-
-  let html = `
-        <div class="detail_box">
-          <div class="img_box">
-            <img
-              src=${data.img}
-              alt=""
-            />
-          </div>
-          <div class="txt_box">
-            <div class="intro_box">
-              <h3>${data.name}</h3>
-              <div class="rate_input">
-                <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                <p class="filled"
-                style="width: ${average * 20}%"
-                >&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-              </div>
-              <p class="current_rate">${average > 0 ? average : ""}</p>
-            </div>
-            <p>${data.address}</p>
-          </div>
-        </div>
-        `;
-  itemBox.insertAdjacentHTML("afterbegin", html);
+      .catch((err) => console.log(err));
+  }
 };
 
 const createReview = async () => {
@@ -110,7 +71,7 @@ const createReview = async () => {
   }
 };
 
-const deleteReview = (commentId, id, rate) => {
+const deleteReview = (commentId, rate) => {
   let data = {
     placeId: id,
     commentId,
@@ -135,42 +96,31 @@ const deleteReview = (commentId, id, rate) => {
   }
 };
 
-const renderReview = (data) => {
-  let reviewList = document.querySelector(
-    ".section_place .review_box .review_list"
-  );
-  data.map((comment) => {
-    const html = `<div class="review_item">
-              <div class="rate_input">
-                <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                <p class="filled"
-                style="width: ${comment.rate * 20}%"
-                >&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-              </div>          
-              <div class="review_txt">
-                <h3>${comment.username}</h3>
-                <p >${comment.comment}</p>
-              </div>
-              <button class="del_review" data-rate=${comment.rate}>❌</button>
-            </div>`;
-    reviewList.insertAdjacentHTML("afterbegin", html);
-    userCheck(comment.userId, comment._id);
-  });
-  let reviewForm = document.querySelector(
-    ".section_place .review_box .review_add"
-  );
+const renderMap = (key) => {
+  // console.log(key, "ekyy");
+  const pos = document
+    .getElementById("map")
+    .attributes["pos"].nodeValue.split(",");
+  console.log(pos, "pos");
 
-  reviewForm.classList.remove("off");
-};
-
-const renderMap = (data, key) => {
   mapboxgl.accessToken = key;
   const map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v11",
-    center: data,
+    center: pos,
     zoom: 11,
   });
-  new mapboxgl.Marker().setLngLat(data).addTo(map);
+  new mapboxgl.Marker().setLngLat(pos).addTo(map);
 };
+
+//rate
+const rateInput = document.querySelector("input[name='rate']");
+const rateFilled = document.querySelector(".rate_input.change_input .filled");
+
+if (rateInput) {
+  rateInput.addEventListener("click", (e) => {
+    rateFilled.style.width = `${e.target.value * 20}%`;
+  });
+}
+
 getItem(link[2]);

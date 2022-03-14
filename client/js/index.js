@@ -107,36 +107,6 @@ const getData = () => {
     .catch((err) => console.log(err));
 };
 
-const userCheck = async (userId, commentId) => {
-  try {
-    let link = window.location.pathname.split("/");
-    let id = link[2];
-    let reviewDel = document.querySelector(
-      ".section_place .review_box .del_review"
-    );
-    let data = { userId };
-    const res = await fetch(`/place/${id}/comment`, {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await res.json();
-    if (!result.success) {
-      reviewDel.classList.add("off");
-    }
-    reviewDel.addEventListener("click", (e) => {
-      let rate = e.target.attributes["data-rate"].value;
-      "index", result;
-      deleteReview(commentId, result.id, rate);
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 //map
 const setMap = (collection, key) => {
   mapboxgl.accessToken = key;
@@ -232,16 +202,6 @@ const setMap = (collection, key) => {
     });
   });
 };
-
-//rate
-const rateInput = document.querySelector("input[name='rate']");
-const rateFilled = document.querySelector(".rate_input .filled");
-
-if (rateInput) {
-  rateInput.addEventListener("click", (e) => {
-    rateFilled.style.width = `${e.target.value * 20}%`;
-  });
-}
 
 setTimeout(() => {
   loginCheck();

@@ -174,7 +174,6 @@ app.post("/create", upload.single("img"), (req, res) => {
 //multer
 app.post("/", (req, res) => {
   let mapToken = process.env.mapToken;
-  // console.log(process.env.mapToken, "🎈");
   Place.find((err, data) => {
     return res.json({
       success: true,
@@ -188,11 +187,11 @@ app.post("/", (req, res) => {
 app.use("/place", placeRouter);
 app.set("views", path.join(__dirname, "/client/pages"));
 app.get("/", (req, res) => {
-  res.render("index");
+  return res.render("index");
 });
 
 app.get("/place/:id", (req, res) => {
-  res.render("place.ejs");
+  return res.render("place.ejs");
 });
 app.get("/list", (req, res) => {
   Place.find((err, data) => {
@@ -203,19 +202,9 @@ app.get("/list", (req, res) => {
 
 app.get("*", (req, res) => {
   const link = req.path.split("/");
-  if (link.length < 3) {
-    res.render(`${link[1]}`);
+  if (link.length < 3 && link[1] !== "favicon.ico") {
+    return res.render(`${link[1]}`);
   }
-});
-
-app.post("/list", (req, res) => {
-  // Place.find((err, data) => {
-  //   if ((err) => console.log(err))
-  //     return res.json({
-  //       success: true,
-  //       data,
-  //     });
-  // });
 });
 
 const port = process.env.PORT || 3000;
