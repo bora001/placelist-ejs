@@ -62,7 +62,6 @@ const createReview = async () => {
       formReset();
       window.location.href = `/place/${link[2]}`;
     } else {
-      alert("Please Login");
       window.location.href = "/login";
     }
   } catch (e) {

@@ -24,11 +24,9 @@ const createForm = async () => {
   });
   const data = await res.json();
   if (data.success) {
-    alert("Thank you, We got the new place!");
     formReset();
     window.location.href = "/";
   } else {
-    alert("Please login");
     window.location.href = "/login";
   }
 };

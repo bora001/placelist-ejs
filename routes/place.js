@@ -66,6 +66,7 @@ router.post("/:id/create/comment", (req, res) => {
     comment: encode(req.body.comment),
   };
   if (!req.session.user_id) {
+    req.flash("txt", "Please Login");
     return res.status(200).send({ success: false });
   }
   if (req.session.user_id) {

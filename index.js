@@ -38,6 +38,7 @@ const storage = new CloudinaryStorage({
 });
 const upload = multer({ storage });
 
+const flash = require("connect-flash");
 //---------------------------------------------------------------------------------------//
 //mongodb
 mongoose
@@ -75,6 +76,8 @@ app.use(
   })
 );
 
+app.use(flash());
+
 //---------------------------------------------------------------------------------------//
 
 app.post("/auth", (req, res) => {
@@ -95,18 +98,16 @@ app.post("/register", async (req, res) => {
     if (password == passwordConfirm) {
       const userCheck = await User.findOne({ username });
       if (userCheck) {
-        return res.send(
-          "<script>alert('The name is already exist');location.href='/register';</script>"
-        );
+        req.flash("txt", "The name is already exist");
+        return res.redirect("/register");
       } else {
         const user = new User({ username, password: hash });
         await user.save();
         return res.redirect("/");
       }
     } else {
-      return res.send(
-        "<script>alert('Passwords do not match');location.href='/register';</script>"
-      );
+      req.flash("txt", "Passwords do not match");
+      return res.redirect("/register");
     }
   } catch (e) {
     console.log(e);
@@ -123,14 +124,12 @@ app.post("/login", async (req, res) => {
         req.session.user_id = user._id;
         return res.redirect("/");
       } else {
-        return res.send(
-          "<script>alert('Incorrect password');location.href='/login';</script>"
-        );
+        req.flash("txt", "Incorrect password");
+        return res.redirect("/login");
       }
     }
-    return res.send(
-      "<script>alert('Check your username');location.href='/login';</script>"
-    );
+    req.flash("txt", "Check your username");
+    return res.redirect("/login");
   } catch (e) {
     console.log(e, "login");
   }
@@ -146,6 +145,7 @@ app.post("/create", upload.single("img"), (req, res) => {
     writer: "",
   };
   if (!req.session.user_id) {
+    req.flash("txt", "Please Login");
     return res.status(200).json({
       success: false,
     });
@@ -165,6 +165,7 @@ app.post("/create", upload.single("img"), (req, res) => {
       data.geometry = geo.body.features[0].geometry;
       const newPlace = new Place(data);
       newPlace.save();
+      req.flash("txt", "Thank you, We got the new place!");
       return res.status(200).json({
         success: true,
       });
@@ -203,7 +204,7 @@ app.get("/list", (req, res) => {
 app.get("*", (req, res) => {
   const link = req.path.split("/");
   if (link.length < 3 && link[1] !== "favicon.ico") {
-    return res.render(`${link[1]}`);
+    return res.render(`${link[1]}`, { message: req.flash("txt") });
   }
 });
 
