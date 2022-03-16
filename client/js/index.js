@@ -4,38 +4,6 @@ const formInput = document.querySelectorAll(
 );
 const listBox = document.querySelector(".section_list .list_box");
 const nav = document.querySelector("nav");
-
-const loginCheck = async () => {
-  const res = await fetch("/auth", {
-    credentials: "include",
-    method: "POST",
-    headers: {
-      "Content-Tpe": "application/json",
-    },
-  });
-  const data = await res.json();
-  const loginSet = document.querySelectorAll("nav .menu .login_box");
-  if (loginSet && data) {
-    loginSet.forEach((set) => {
-      if (set.classList.contains(`login_${data.login}`)) {
-        set.classList.remove("off");
-      }
-    });
-  }
-};
-
-const logoutE = async () => {
-  try {
-    const res = await fetch("/logout", {
-      // credentials: "include",
-      method: "POST",
-    });
-    const data = await res.json();
-    window.location.href = "/";
-  } catch (e) {
-    console.log(e);
-  }
-};
 //form-reset
 const formReset = () => {
   formInput.forEach((input) => {
@@ -55,7 +23,7 @@ const formSubmit = () => {
             registerForm();
             break;
           case "Login":
-            loginForm();
+            // loginForm();
             break;
           case "Create New PlaceList":
             createForm();
@@ -203,8 +171,5 @@ const setMap = (collection, key) => {
   });
 };
 
-setTimeout(() => {
-  loginCheck();
-}, 100);
 getData();
 formSubmit();

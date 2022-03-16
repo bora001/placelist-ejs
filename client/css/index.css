@@ -45,24 +45,17 @@ nav .menu {
   align-items: center;
   text-align: center;
 }
-nav .menu a {
+nav .menu a,
+nav .menu .btn_logout {
+  border: none;
+  background-color: transparent;
   color: #131577;
   font-family: "Lobster", cursive;
   font-size: 22px;
   letter-spacing: 1px;
   width: 100px;
   align-items: center;
-}
-nav .menu .login_box {
-  display: flex;
-  justify-content: space-between;
-  width: 220px;
-}
-nav .menu .login_box a {
-  display: inline-block;
-}
-nav .menu .login_box.login_true {
-  width: 320px;
+  cursor: pointer;
 }
 
 #map {
@@ -263,17 +256,6 @@ section .form_box .btn_submit:hover {
     width: 6.9444vw;
     align-items: center;
   }
-  nav .menu .login_box {
-    display: flex;
-    justify-content: space-between;
-    width: 16vw;
-  }
-  nav .menu .login_box a {
-    display: inline-block;
-  }
-  nav .menu .login_box.login_true {
-    width: 24vw;
-  }
 
   #map {
     width: 100%;
@@ -426,17 +408,6 @@ section .form_box .btn_submit:hover {
     font-size: 4vw;
     letter-spacing: 0.1304vw;
     align-items: center;
-  }
-  nav .menu .login_box {
-    display: flex;
-    justify-content: space-between;
-    width: 30vw;
-  }
-  nav .menu .login_box a {
-    display: inline-block;
-  }
-  nav .menu .login_box.login_true {
-    width: 54vw;
   }
 
   #map {

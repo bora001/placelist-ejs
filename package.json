@@ -36,6 +36,9 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.15",
     "parcel": "^2.3.2",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.0.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

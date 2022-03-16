@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const { Review } = require("../models/Review");
 const { encode } = require("html-entities");
 const cloudinary = require("cloudinary").v2;
+const { authCheck } = require("../middleware");
 
 router.use(cookieParser());
 
@@ -57,7 +58,7 @@ router.post("/:id/comment", (req, res) => {
   });
 });
 
-router.post("/:id/create/comment", (req, res) => {
+router.post("/:id/create/comment", authCheck, (req, res) => {
   let data = {
     userId: "",
     username: "",
@@ -65,10 +66,7 @@ router.post("/:id/create/comment", (req, res) => {
     rate: req.body.rate,
     comment: encode(req.body.comment),
   };
-  if (!req.session.user_id) {
-    req.flash("txt", "Please Login");
-    return res.status(200).send({ success: false });
-  }
+
   if (req.session.user_id) {
     User.findById(req.session.user_id, (err, user) => {
       data.userId = user._id;

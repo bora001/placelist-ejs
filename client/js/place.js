@@ -61,8 +61,6 @@ const createReview = async () => {
     if (data.success) {
       formReset();
       window.location.href = `/place/${link[2]}`;
-    } else {
-      window.location.href = "/login";
     }
   } catch (e) {
     console.log(e);
@@ -96,11 +94,9 @@ const deleteReview = (commentId, rate) => {
 };
 
 const renderMap = (key) => {
-  // console.log(key, "ekyy");
   const pos = document
     .getElementById("map")
     .attributes["pos"].nodeValue.split(",");
-  console.log(pos, "pos");
 
   mapboxgl.accessToken = key;
   const map = new mapboxgl.Map({

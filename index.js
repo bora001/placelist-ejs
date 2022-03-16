@@ -39,6 +39,9 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const { authCheck } = require("./middleware");
 //---------------------------------------------------------------------------------------//
 //mongodb
 mongoose
@@ -57,12 +60,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/client"));
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.localUrl + ":5500");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
-
 app.use(
   session({
     secret: "typethesecret",
@@ -77,19 +74,48 @@ app.use(
 );
 
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    User.findOne({ username: username }, async (err, user) => {
+      const validPw = await bcrypt.compare(password, user.password);
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { txt: "Incorrect name!" });
+      }
+      if (!validPw) {
+        return done(null, false, { txt: "Passwords do not match" });
+      }
+      return done(null, user);
+    });
+  })
+);
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.header("Access-Control-Allow-Origin", process.env.localUrl + ":5500");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 //---------------------------------------------------------------------------------------//
 
-app.post("/auth", (req, res) => {
-  if (!req.session.user_id) {
-    return res.json({ login: false });
-  }
-  return res.json({ login: true });
-});
-
-app.post("/logout", (req, res) => {
-  req.session.user_id = null;
-  return res.json({ login: false });
+app.get("/logout", (req, res) => {
+  req.logout();
+  req.session.save(() => {
+    res.redirect("/");
+  });
 });
 
 app.post("/register", async (req, res) => {
@@ -114,28 +140,21 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    if (user) {
-      const validPw = await bcrypt.compare(password, user.password);
-      if (validPw) {
-        req.session.user_id = user._id;
-        return res.redirect("/");
-      } else {
-        req.flash("txt", "Incorrect password");
-        return res.redirect("/login");
-      }
-    }
-    req.flash("txt", "Check your username");
-    return res.redirect("/login");
-  } catch (e) {
-    console.log(e, "login");
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureFlash: true,
+    failureRedirect: "/login",
+    successRedirect: "/",
+  }),
+  (req, res) => {
+    req.session.save(function () {
+      res.redirect("/");
+    });
   }
-});
+);
 
-app.post("/create", upload.single("img"), (req, res) => {
+app.post("/create", authCheck, upload.single("img"), (req, res) => {
   let data = {
     name: encode(req.body.name),
     rate: req.body.rate,
@@ -144,12 +163,6 @@ app.post("/create", upload.single("img"), (req, res) => {
     imgName: req.file.filename,
     writer: "",
   };
-  if (!req.session.user_id) {
-    req.flash("txt", "Please Login");
-    return res.status(200).json({
-      success: false,
-    });
-  }
 
   User.findById(req.session.user_id, (err, user) => {
     data.writer = user._id;
@@ -204,7 +217,9 @@ app.get("/list", (req, res) => {
 app.get("*", (req, res) => {
   const link = req.path.split("/");
   if (link.length < 3 && link[1] !== "favicon.ico") {
-    return res.render(`${link[1]}`, { message: req.flash("txt") });
+    return res.render(`${link[1]}`, {
+      message: req.flash("txt"),
+    });
   }
 });
 

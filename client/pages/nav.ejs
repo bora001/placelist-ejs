@@ -1,14 +1,17 @@
 <nav>
   <div class="logo"><a href="/">PlaceList</a></div>
   <div class="menu">
-    <div class="login_box login_true off">
-      <a href="/list">List</a>
-      <a href="/create">Post Place</a>
-      <a href="/" onclick="logoutE()">logout</a>
-    </div>
-    <div class="login_box login_false off">
-      <a href="/login">Login</a>
-      <a href="/register">Register</a>
-    </div>
-  </div>
+    <% if (!currentUser) {%>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+
+    <% }else{%>
+    <a href="/list">List</a>
+    <a href="/create">Post Place</a>
+    <form action="/logout">
+      <input type="submit" class="btn_logout" value="logout">
+    </form>
+
+    <%}%>
+
 </nav>

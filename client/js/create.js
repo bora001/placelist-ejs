@@ -26,8 +26,6 @@ const createForm = async () => {
   if (data.success) {
     formReset();
     window.location.href = "/";
-  } else {
-    window.location.href = "/login";
   }
 };
 

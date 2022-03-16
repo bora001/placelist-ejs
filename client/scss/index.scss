@@ -54,25 +54,17 @@ nav {
     align-items: center;
     text-align: center;
 
-    a {
+    a,
+    .btn_logout {
+      border: none;
+      background-color: transparent;
       color: rgb(19, 21, 119);
       font-family: "Lobster", cursive;
       font-size: 22px;
       letter-spacing: 1px;
       width: 100px;
       align-items: center;
-    }
-    .login_box {
-      display: flex;
-      justify-content: space-between;
-      width: 220px;
-
-      a {
-        display: inline-block;
-      }
-    }
-    .login_box.login_true {
-      width: 320px;
+      cursor: pointer;
     }
   }
 }
@@ -306,18 +298,6 @@ section {
         width: 6.9444vw;
         align-items: center;
       }
-      .login_box {
-        display: flex;
-        justify-content: space-between;
-        width: 16vw;
-
-        a {
-          display: inline-block;
-        }
-      }
-      .login_box.login_true {
-        width: 24vw;
-      }
     }
   }
 
@@ -500,17 +480,6 @@ section {
         font-size: 4vw;
         letter-spacing: 0.1304vw;
         align-items: center;
-      }
-      .login_box {
-        display: flex;
-        justify-content: space-between;
-        width: 30vw;
-        a {
-          display: inline-block;
-        }
-      }
-      .login_box.login_true {
-        width: 54vw;
       }
     }
   }
