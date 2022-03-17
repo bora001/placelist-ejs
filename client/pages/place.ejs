@@ -99,7 +99,8 @@
                 <h3><%= review.username %></h3>
                 <p><%= review.comment %></p>
               </div>
-              <% if(loginUser == review.userId){ %>
+              <% if(loginUser && review.userId.valueOf() ==
+              loginUser._id.valueOf()){ %>
               <button
                 class="del_review"
                 onClick="deleteReview(`<%= review._id%>`,`<%= review.rate%>`)"

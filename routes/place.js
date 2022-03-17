@@ -13,9 +13,9 @@ router.use(cookieParser());
 
 router.get("/:id", (req, res) => {
   let id = { _id: req.params.id };
-  let loginUser = req.session.user_id;
-  if (req.session.user_id) {
-    User.findById(req.session.user_id, (err, user) => {
+  let loginUser = req.user;
+  if (req.user) {
+    User.findById(req.user, (err, user) => {
       Place.findOne(id, function (err, item) {
         let writer = user._id.valueOf() == item.writer.valueOf();
         res.render("place.ejs", { item, writer, loginUser });
@@ -47,7 +47,7 @@ router.delete("/:id/delete", (req, res) => {
 
 router.post("/:id/comment", (req, res) => {
   let id = { _id: req.params.id };
-  if (req.body.userId == req.session.user_id) {
+  if (req.body.userId == req.user) {
     return res.status(200).json({
       success: true,
       id: req.params.id,
