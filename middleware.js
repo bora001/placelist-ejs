@@ -3,7 +3,7 @@ module.exports.authCheck = (req, res, next) => {
   console.log(req.url, "url.req.");
   if (!req.user) {
     console.log("login first!");
-    req.flash("txt", "Please login");
+    req.flash("pass", "Please login");
     req.session.returnTo = req.originalUrl;
     res.redirect("/login");
     return;

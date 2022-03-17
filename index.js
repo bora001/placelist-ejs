@@ -84,6 +84,7 @@ passport.deserializeUser(function (id, done) {
     done(err, user);
   });
 });
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     User.findOne({ username: username }, async (err, user) => {
@@ -92,6 +93,7 @@ passport.use(
         return done(err);
       }
       if (!user) {
+        console.log("no user");
         return done(null, false, { txt: "Incorrect name!" });
       }
       if (!validPw) {
@@ -104,6 +106,8 @@ passport.use(
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.pass = req.flash("pass");
+  res.locals.fail = req.flash("fail");
   res.header("Access-Control-Allow-Origin", process.env.localUrl + ":5500");
   res.header("Access-Control-Allow-Credentials", true);
   next();
@@ -122,20 +126,21 @@ app.get("/logout", (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     const { username, password, passwordConfirm } = req.body;
-    if (password == passwordConfirm) {
-      const userCheck = await User.findOne({ username });
+    const userCheck = await User.findOne({ username });
+
+    if (password !== passwordConfirm) {
+      req.flash("fail", "Passwords do not match");
+      return res.redirect("/register");
+    } else {
       if (userCheck) {
-        req.flash("txt", "The name is already exist");
+        req.flash("fail", "The name is already exist");
         return res.redirect("/register");
       } else {
         const user = new User({ username, password });
         await user.save();
-        req.flash("txt", `Welcome! ${username}, Please Login again!`);
+        req.flash("pass", `Welcome! ${username}, Please Login again!`);
         return res.redirect("/login");
       }
-    } else {
-      req.flash("txt", "Passwords do not match");
-      return res.redirect("/register");
     }
   } catch (e) {
     console.log(e);
@@ -178,7 +183,7 @@ app.post("/create", authCheck, upload.single("img"), (req, res) => {
       data.geometry = geo.body.features[0].geometry;
       const newPlace = new Place(data);
       newPlace.save();
-      req.flash("txt", "Thank you, We got the new place!");
+      req.flash("pass", "Thank you, We got the new place!");
       return res.redirect("/list");
     });
 });
@@ -199,9 +204,7 @@ app.post("/", (req, res) => {
 app.use("/place", placeRouter);
 app.set("views", path.join(__dirname, "/client/pages"));
 app.get("/", (req, res) => {
-  return res.render("index", {
-    message: req.flash("txt"),
-  });
+  return res.render("index");
 });
 
 app.get("/place/:id", (req, res) => {
@@ -217,9 +220,7 @@ app.get("/list", (req, res) => {
 app.get("*", (req, res) => {
   const link = req.path.split("/");
   if (link.length < 3 && link[1] !== "favicon.ico") {
-    return res.render(`${link[1]}`, {
-      message: req.flash("txt"),
-    });
+    return res.render(`${link[1]}`);
   }
 });
 

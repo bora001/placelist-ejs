@@ -1,17 +1,3 @@
-const formBtn = document.querySelectorAll(".form_box .btn_submit");
-const formInput = document.querySelectorAll(
-  ".form_box input, .form_box textarea"
-);
-const listBox = document.querySelector(".section_list .list_box");
-const nav = document.querySelector("nav");
-
-//form-reset
-const formReset = () => {
-  formInput.forEach((input) => {
-    input.value = "";
-  });
-};
-
 //getData
 const getData = () => {
   if (window.location.pathname !== "/") {
