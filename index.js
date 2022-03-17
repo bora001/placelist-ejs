@@ -88,18 +88,18 @@ passport.deserializeUser(function (id, done) {
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     User.findOne({ username: username }, async (err, user) => {
-      const validPw = await bcrypt.compare(password, user.password);
       if (err) {
         return done(err);
       }
       if (!user) {
-        console.log("no user");
-        return done(null, false, { txt: "Incorrect name!" });
+        return done(null, false, { message: "Incorrect name!" });
       }
+      const validPw = await bcrypt.compare(password, user.password);
+
       if (!validPw) {
-        return done(null, false, { txt: "Passwords do not match" });
+        return done(null, false, { message: "Passwords do not match" });
       }
-      return done(null, user);
+      return done(null, user, { message: `Welcome! ${user.username}` });
     });
   })
 );
@@ -151,9 +151,11 @@ app.post(
   "/login",
   passport.authenticate("local", {
     failureFlash: true,
+    successFlash: true,
     failureRedirect: "/login",
   }),
   (req, res) => {
+    const fm = req.flash("fail");
     req.session.save(function () {
       console.log("returnTo:login-", req.session.returnTo);
       res.redirect("/");
@@ -204,7 +206,9 @@ app.post("/", (req, res) => {
 app.use("/place", placeRouter);
 app.set("views", path.join(__dirname, "/client/pages"));
 app.get("/", (req, res) => {
-  return res.render("index");
+  const fm = req.flash();
+
+  return res.render("index", { welcome: fm.success });
 });
 
 app.get("/place/:id", (req, res) => {
@@ -218,9 +222,10 @@ app.get("/list", (req, res) => {
 });
 
 app.get("*", (req, res) => {
+  const fm = req.flash();
   const link = req.path.split("/");
   if (link.length < 3 && link[1] !== "favicon.ico") {
-    return res.render(`${link[1]}`);
+    return res.render(`${link[1]}`, { err: fm.err });
   }
 });
 
