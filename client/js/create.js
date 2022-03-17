@@ -1,32 +1,30 @@
 const createForm = async () => {
-  const submitBtn = document.querySelector(".btn_submit");
-
-  const form = document.querySelector(".form_new");
-  const formData = new FormData(form);
-  form.addEventListener("submit", (e) => {
-    const str = "Upload.......";
-    submitBtn.disable = true;
-
-    const count = (word, index) => {
-      setTimeout(() => {
-        submitBtn.value = word;
-      }, 150 * index);
-    };
-
-    for (let i in str) {
-      let s = str.slice(0, Number(i) + 1);
-      count(s, i);
-    }
-  });
-  const res = await fetch("/create", {
-    method: "POST",
-    body: formData,
-  });
-  const data = await res.json();
-  if (data.success) {
-    formReset();
-    window.location.href = "/";
-  }
+  console.log("createForm!-client");
+  // const submitBtn = document.querySelector(".btn_submit");
+  // const form = document.querySelector(".form_new");
+  // const formData = new FormData(form);
+  // form.addEventListener("submit", (e) => {
+  //   const str = "Upload.......";
+  //   submitBtn.disable = true;
+  //   const count = (word, index) => {
+  //     setTimeout(() => {
+  //       submitBtn.value = word;
+  //     }, 150 * index);
+  //   };
+  //   for (let i in str) {
+  //     let s = str.slice(0, Number(i) + 1);
+  //     count(s, i);
+  //   }
+  // });
+  // const res = await fetch("/create", {
+  //   method: "POST",
+  //   body: formData,
+  // });
+  // const data = await res.json();
+  // if (data.success) {
+  //   formReset();
+  //   window.location.href = "/";
+  // }
 };
 
 const thumbnail = () => {

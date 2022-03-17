@@ -114,6 +114,7 @@ app.use((req, res, next) => {
 app.get("/logout", (req, res) => {
   req.logout();
   req.session.save(() => {
+    console.log("logout/returnTo", req.session.returnTo);
     res.redirect("/");
   });
 });
@@ -127,9 +128,10 @@ app.post("/register", async (req, res) => {
         req.flash("txt", "The name is already exist");
         return res.redirect("/register");
       } else {
-        const user = new User({ username, password: hash });
+        const user = new User({ username, password });
         await user.save();
-        return res.redirect("/");
+        req.flash("txt", `Welcome! ${username}, Please Login again!`);
+        return res.redirect("/login");
       }
     } else {
       req.flash("txt", "Passwords do not match");
@@ -145,10 +147,10 @@ app.post(
   passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/login",
-    successRedirect: "/",
   }),
   (req, res) => {
     req.session.save(function () {
+      console.log("returnTo:login-", req.session.returnTo);
       res.redirect("/");
     });
   }
@@ -163,11 +165,9 @@ app.post("/create", authCheck, upload.single("img"), (req, res) => {
     imgName: req.file.filename,
     writer: "",
   };
-
-  User.findById(req.session.user_id, (err, user) => {
+  User.findById(req.user, (err, user) => {
     data.writer = user._id;
   });
-
   const geoData = geocoder
     .forwardGeocode({
       query: req.body.location,
@@ -179,9 +179,7 @@ app.post("/create", authCheck, upload.single("img"), (req, res) => {
       const newPlace = new Place(data);
       newPlace.save();
       req.flash("txt", "Thank you, We got the new place!");
-      return res.status(200).json({
-        success: true,
-      });
+      return res.redirect("/list");
     });
 });
 
@@ -201,7 +199,9 @@ app.post("/", (req, res) => {
 app.use("/place", placeRouter);
 app.set("views", path.join(__dirname, "/client/pages"));
 app.get("/", (req, res) => {
-  return res.render("index");
+  return res.render("index", {
+    message: req.flash("txt"),
+  });
 });
 
 app.get("/place/:id", (req, res) => {

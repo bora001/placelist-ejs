@@ -4,39 +4,11 @@ const formInput = document.querySelectorAll(
 );
 const listBox = document.querySelector(".section_list .list_box");
 const nav = document.querySelector("nav");
+
 //form-reset
 const formReset = () => {
   formInput.forEach((input) => {
     input.value = "";
-  });
-};
-
-//formSubmit
-const formSubmit = () => {
-  formBtn.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      // inputValidCheck();
-      const inputArray = Array.from(formInput);
-      if (inputArray.every((input) => input.validity.valid)) {
-        switch (e.target.value) {
-          case "Register":
-            registerForm();
-            break;
-          case "Login":
-            // loginForm();
-            break;
-          case "Create New PlaceList":
-            createForm();
-            break;
-          case "Leave a Review":
-            createReview();
-            break;
-
-          default:
-            break;
-        }
-      }
-    });
   });
 };
 
@@ -172,4 +144,3 @@ const setMap = (collection, key) => {
 };
 
 getData();
-formSubmit();

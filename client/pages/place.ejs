@@ -55,7 +55,11 @@
         </div>
         <div class="review_box">
           <div class="review_add">
-            <form action="" class="form_box" onsubmit="return false">
+            <form
+              action="/place/<%= item._id%>/create/comment"
+              class="form_box"
+              method="POST"
+            >
               <div class="top_box">
                 <h3>Leave a Review</h3>
                 <div class="rate_input change_input">

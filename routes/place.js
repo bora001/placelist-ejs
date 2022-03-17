@@ -57,8 +57,7 @@ router.post("/:id/comment", (req, res) => {
     success: false,
   });
 });
-
-router.post("/:id/create/comment", authCheck, (req, res) => {
+router.post("/:id/create/comment", (req, res) => {
   let data = {
     userId: "",
     username: "",
@@ -67,15 +66,15 @@ router.post("/:id/create/comment", authCheck, (req, res) => {
     comment: encode(req.body.comment),
   };
 
-  if (req.session.user_id) {
-    User.findById(req.session.user_id, (err, user) => {
+  if (req.user) {
+    User.findById(req.user, (err, user) => {
       data.userId = user._id;
       data.username = user.username;
       const newReview = new Review(data);
       const reviewId = newReview._id;
       newReview.save();
       Place.findOneAndUpdate(
-        { _id: req.body.id },
+        { _id: req.params.id },
         {
           $inc: {
             rate: req.body.rate,
@@ -86,10 +85,14 @@ router.post("/:id/create/comment", authCheck, (req, res) => {
         },
         function (err, update) {
           if (err) return res.status(200).json({ success: false, err });
-          return res.status(200).send({ success: true, update });
+          return res.redirect(`/place/${req.params.id}`);
         }
       );
     });
+  } else {
+    req.session.returnTo = `/place/${req.params.id}`;
+    console.log("returnTo-create.review:");
+    return res.redirect(`/login`);
   }
 });
 
