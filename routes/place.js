@@ -57,7 +57,7 @@ router.post("/:id/comment", (req, res) => {
     success: false,
   });
 });
-router.post("/:id/create/comment", (req, res) => {
+router.post("/:id/create/comment", authCheck, (req, res) => {
   let data = {
     userId: "",
     username: "",
@@ -89,10 +89,6 @@ router.post("/:id/create/comment", (req, res) => {
         }
       );
     });
-  } else {
-    req.session.returnTo = `/place/${req.params.id}`;
-    console.log("returnTo-create.review:");
-    return res.redirect(`/login`);
   }
 });
 

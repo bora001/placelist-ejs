@@ -118,7 +118,6 @@ app.use((req, res, next) => {
 app.get("/logout", (req, res) => {
   req.logout();
   req.session.save(() => {
-    console.log("logout/returnTo", req.session.returnTo);
     res.redirect("/");
   });
 });
@@ -155,10 +154,9 @@ app.post(
     failureRedirect: "/login",
   }),
   (req, res) => {
-    const fm = req.flash("fail");
     req.session.save(function () {
       console.log("returnTo:login-", req.session.returnTo);
-      res.redirect("/");
+      res.redirect(req.session.returnTo);
     });
   }
 );
@@ -207,7 +205,6 @@ app.use("/place", placeRouter);
 app.set("views", path.join(__dirname, "/client/pages"));
 app.get("/", (req, res) => {
   const fm = req.flash();
-
   return res.render("index", { welcome: fm.success });
 });
 
@@ -215,17 +212,21 @@ app.get("/place/:id", (req, res) => {
   return res.render("place.ejs");
 });
 app.get("/list", (req, res) => {
+  const fm = req.flash();
+
   Place.find((err, data) => {
     if (err) console.log(err);
-    return res.render("list.ejs", { data });
+    return res.render("list.ejs", { data, welcome: fm.success });
   });
 });
 
 app.get("*", (req, res) => {
   const fm = req.flash();
+  console.log(fm);
   const link = req.path.split("/");
+  req.session.returnTo = req.headers.referer;
   if (link.length < 3 && link[1] !== "favicon.ico") {
-    return res.render(`${link[1]}`, { err: fm.err });
+    return res.render(`${link[1]}`, { err: fm.error });
   }
 });
 
