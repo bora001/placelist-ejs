@@ -99,7 +99,7 @@ passport.use(
       if (!validPw) {
         return done(null, false, { message: "Passwords do not match" });
       }
-      return done(null, user, { message: `Welcome! ${user.username}` });
+      return done(null, user);
     });
   })
 );
@@ -145,7 +145,6 @@ app.post("/register", async (req, res) => {
     console.log(e);
   }
 });
-
 app.post(
   "/login",
   passport.authenticate("local", {
@@ -154,9 +153,11 @@ app.post(
     failureRedirect: "/login",
   }),
   (req, res) => {
+    if (req.headers.referer == req.session.returnTo) {
+      return res.redirect("/");
+    }
     req.session.save(function () {
-      console.log("returnTo:login-", req.session.returnTo);
-      res.redirect(req.session.returnTo);
+      return res.redirect(req.session.returnTo);
     });
   }
 );
@@ -203,30 +204,27 @@ app.post("/", (req, res) => {
 //router
 app.use("/place", placeRouter);
 app.set("views", path.join(__dirname, "/client/pages"));
+
 app.get("/", (req, res) => {
-  const fm = req.flash();
-  return res.render("index", { welcome: fm.success });
+  return res.render("index");
 });
 
-app.get("/place/:id", (req, res) => {
-  return res.render("place.ejs");
-});
+// app.get("/place/:id", (req, res) => {
+//   return res.render("place.ejs");
+// });
 app.get("/list", (req, res) => {
-  const fm = req.flash();
-
   Place.find((err, data) => {
     if (err) console.log(err);
-    return res.render("list.ejs", { data, welcome: fm.success });
+    return res.render("list.ejs", { data });
   });
 });
 
 app.get("*", (req, res) => {
   const fm = req.flash();
-  console.log(fm);
   const link = req.path.split("/");
   req.session.returnTo = req.headers.referer;
   if (link.length < 3 && link[1] !== "favicon.ico") {
-    return res.render(`${link[1]}`, { err: fm.error });
+    return res.render(`${link[1]}`, { check: fm.error });
   }
 });
 
