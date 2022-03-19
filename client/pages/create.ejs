@@ -29,6 +29,11 @@
           value="Create New PlaceList"
           name="type"
         />
+        <% if(fail){ %>
+        <p class="err_msg"><%= fail %></p>
+        <% } %> <% if(pass){ %>
+        <p class="err_msg"><%= pass %></p>
+        <% } %>
       </form>
     </section>
   </body>

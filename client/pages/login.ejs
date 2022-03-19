@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <%-include('nav.ejs') %> <%= check %>
+    <%-include('nav.ejs') %>
     <section class="section_login">
       <form class="form_login form_box" action="/login" method="POST">
         <h2>Login</h2>
@@ -21,6 +21,11 @@
           required
         />
         <input type="submit" class="btn_submit" value="Login" name="type" />
+        <% if(check){ %>
+        <p class="err_msg"><%= check %></p>
+        <% } %> <% if(pass){ %>
+        <p class="err_msg"><%= pass %></p>
+        <% } %>
       </form>
     </section>
   </body>

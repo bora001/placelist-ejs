@@ -13,14 +13,12 @@ const getItem = async (id) => {
     });
     const data = await res.json();
     renderMap(data.key);
-    console.log(data);
   } catch (e) {
     console.log(e);
   }
 };
 
 const deleteItem = () => {
-  console.log(id);
   if (window.confirm("Are you sure you want to delete this place ?")) {
     fetch(`/place/${id}/delete`, {
       credentials: "include",
@@ -64,7 +62,6 @@ const createReview = async () => {
     }
   } catch (e) {
     console.log(e);
-    console.log(JSON.stringify(e));
   }
 };
 

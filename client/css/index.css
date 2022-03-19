@@ -233,6 +233,13 @@ section .form_box .btn_submit:hover {
   cursor: pointer;
 }
 
+.err_msg {
+  font-weight: 700;
+  text-align: center;
+  font-size: 16px;
+  color: #0f118b;
+}
+
 @media (min-width: 768px) and (max-width: 1440px) {
   nav {
     width: 100vw;
@@ -385,6 +392,10 @@ section .form_box .btn_submit:hover {
   }
   .mapboxgl-popup-content h2 {
     font-size: 0.9028vw;
+  }
+
+  .err_msg {
+    font-size: 1.1111vw;
   }
 }
 @media all and (max-width: 767px) {
@@ -546,6 +557,10 @@ section .form_box .btn_submit:hover {
   .mapboxgl-popup-content .mapboxgl-popup-close-button {
     font-size: 7vw;
     margin: 0 2vw;
+  }
+
+  .err_msg {
+    font-size: 4vw;
   }
 }
 
